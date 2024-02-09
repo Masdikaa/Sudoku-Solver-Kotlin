@@ -6,53 +6,54 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:fontFamily="@font/poppins"
+        android:text="Sudoku Solver"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/top_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@id/bottom_grid"
-        app:layout_constraintEnd_toEndOf="@id/end_grid"
-        app:layout_constraintStart_toStartOf="@id/start_grid"
-        app:layout_constraintTop_toTopOf="@id/top_grid">
+        android:layout_marginHorizontal="15dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_board"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_board">
 
-        <GridView
-            android:id="@+id/gridView1"
+        <com.masdika.sudokusolver.SudokuBoardViews
+            android:id="@+id/board"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:numColumns="9">
+            android:layout_height="match_parent" />
 
-        </GridView>
+    </RelativeLayout>
 
-    </LinearLayout>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/top_grid"
+        android:id="@+id/top_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_percent="0.06" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/bottom_grid"
+        android:id="@+id/top_board"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/start_grid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
         app:layout_constraintGuide_percent="0.1" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/end_grid"
+        android:id="@+id/bottom_board"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.9" />
-
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
