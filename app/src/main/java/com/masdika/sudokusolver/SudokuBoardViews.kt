@@ -9,6 +9,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import androidx.core.content.ContextCompat
 import kotlin.math.min
 
 class SudokuBoardViews(context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {
@@ -35,12 +36,12 @@ class SudokuBoardViews(context: Context, attributeSet: AttributeSet) : View(cont
 
     private val selectedCellPaint = Paint().apply {
         style = Paint.Style.FILL_AND_STROKE
-        color = Color.parseColor("#40A2E3")
+        color = ContextCompat.getColor(context, R.color.selected_cell)
     }
 
     private val conflictingCellPaint = Paint().apply {
         style = Paint.Style.FILL_AND_STROKE
-        color = Color.parseColor("#EFEDEF")
+        color = ContextCompat.getColor(context, R.color.conflicting_cell)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

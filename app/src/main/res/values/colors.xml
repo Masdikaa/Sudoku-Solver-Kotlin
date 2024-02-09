@@ -8,5 +8,7 @@
     <color name="secondary">#03053D</color>
     <color name="gray">#F5F7F8</color>
     <color name="dark_gray">#222831</color>
+    <color name="selected_cell">#B3D2FF</color>
+    <color name="conflicting_cell">#EEF5FF</color>
 
 </resources>
