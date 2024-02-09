@@ -1,12 +1,15 @@
 package com.masdika.sudokusolver
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import kotlin.math.min
 
 class SudokuBoardViews(context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {
 
@@ -14,8 +17,8 @@ class SudokuBoardViews(context: Context, attributeSet: AttributeSet) : View(cont
     private var size = 9
 
     private var cellSizePixels = 0F
-    private var selectedRow = 0
-    private var selectedCol = 0
+    private var selectedRow = 1
+    private var selectedCol = 1
 
     private val thickLinePaint = Paint().apply {
         style = Paint.Style.STROKE
@@ -42,7 +45,7 @@ class SudokuBoardViews(context: Context, attributeSet: AttributeSet) : View(cont
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        val sizePixels = Math.min(widthMeasureSpec, heightMeasureSpec)
+        val sizePixels = min(widthMeasureSpec, heightMeasureSpec)
         setMeasuredDimension(sizePixels, sizePixels)
     }
 
@@ -53,7 +56,7 @@ class SudokuBoardViews(context: Context, attributeSet: AttributeSet) : View(cont
     }
 
     private fun fillCells(canvas: Canvas) {
-        if (selectedRow == 1 || selectedCol == 1) return
+        if (selectedRow == -1 || selectedCol == -1) return
 
         for (r in 0..size) {
             for (c in 0..size) {
@@ -105,6 +108,7 @@ class SudokuBoardViews(context: Context, attributeSet: AttributeSet) : View(cont
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         return when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
@@ -119,6 +123,7 @@ class SudokuBoardViews(context: Context, attributeSet: AttributeSet) : View(cont
     private fun handleTouchEvent(x: Float, y: Float) {
         selectedRow = (y / cellSizePixels).toInt()
         selectedCol = (x / cellSizePixels).toInt()
+        Log.i("TouchCoordinates", "Selected Row: $selectedRow, Selected Column: $selectedCol")
         invalidate()
     }
 
