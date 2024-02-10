@@ -1,4 +1,4 @@
-package com.masdika.sudokusolver
+package com.masdika.sudokusolver.view.custom
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -6,10 +6,10 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.content.ContextCompat
+import com.masdika.sudokusolver.R
 import kotlin.math.min
 
 class SudokuBoardViews(context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {
@@ -20,6 +20,8 @@ class SudokuBoardViews(context: Context, attributeSet: AttributeSet) : View(cont
     private var cellSizePixels = 0F
     private var selectedRow = 1
     private var selectedCol = 1
+
+    private var listener: OnTouchListener? = null
 
     private val thickLinePaint = Paint().apply {
         style = Paint.Style.STROKE
@@ -122,10 +124,25 @@ class SudokuBoardViews(context: Context, attributeSet: AttributeSet) : View(cont
     }
 
     private fun handleTouchEvent(x: Float, y: Float) {
-        selectedRow = (y / cellSizePixels).toInt()
-        selectedCol = (x / cellSizePixels).toInt()
-        Log.i("TouchCoordinates", "Selected Row: $selectedRow, Selected Column: $selectedCol")
+        val possibleSelectedRow = (y / cellSizePixels).toInt()
+        val possibleSelectedCol = (x / cellSizePixels).toInt()
+        //Log.i("TouchCoordinates", "Selected Row: $selectedRow, Selected Column: $selectedCol")
+        //invalidate()
+        listener?.onCellTouched(possibleSelectedRow, possibleSelectedCol)
+    }
+
+    fun updateSelectedCellUI(row: Int, col: Int) {
+        selectedRow = row
+        selectedCol = col
         invalidate()
+    }
+
+    fun registerListener(listener: OnTouchListener) {
+        this.listener = listener
+    }
+
+    interface OnTouchListener {
+        fun onCellTouched(row: Int, col: Int)
     }
 
 }
